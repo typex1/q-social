@@ -1,0 +1,46 @@
+{
+  "name": "q-social",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev:local": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "dev:backend": "tsx backend/local/server.ts",
+    "dev:frontend": "next dev -H 0.0.0.0",
+    "dev:frontend:proxy": "NEXT_PUBLIC_BASE_PATH=/proxy/3000 next dev -H 0.0.0.0",
+    "build:backend": "esbuild backend/aws/handlers/*.ts --bundle --platform=node --target=node20 --outdir=backend/aws/dist",
+    "build:frontend": "next build",
+    "deploy:backend": "npm run build:backend && cd infrastructure && cdk deploy --outputs-file ../cdk-outputs.json",
+    "deploy:frontend": "node scripts/deploy-frontend.js",
+    "deploy:aws": "npm run deploy:backend && npm run deploy:frontend",
+    "cdk:synth": "cd infrastructure && cdk synth",
+    "cdk:destroy": "cd infrastructure && cdk destroy"
+  },
+  "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.540.0",
+    "@aws-sdk/lib-dynamodb": "^3.540.0",
+    "aws-cdk-lib": "^2.133.0",
+    "constructs": "^10.3.0",
+    "cors": "^2.8.5",
+    "express": "^4.18.0",
+    "next": "^14.2.0",
+    "react": "^18.3.0",
+    "react-dom": "^18.3.0",
+    "sqlite3": "^5.1.7",
+    "uuid": "^9.0.1"
+  },
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.136",
+    "@types/cors": "^2.8.17",
+    "@types/express": "^4.17.21",
+    "@types/node": "^20.19.35",
+    "@types/react": "^18.3.0",
+    "@types/react-dom": "^18.3.0",
+    "@types/uuid": "^9.0.8",
+    "concurrently": "^8.2.2",
+    "esbuild": "^0.20.1",
+    "source-map-support": "^0.5.21",
+    "ts-node": "^10.9.2",
+    "tsx": "^4.7.1",
+    "typescript": "^5.4.0"
+  }
+}

@@ -20,7 +20,10 @@ NEXT_PUBLIC_API_URL=${apiUrl}
   console.log('Uploading to S3...');
   execSync(`aws s3 sync out/ s3://${bucketName}/ --delete`, { stdio: 'inherit' });
 
-  const distributionId = distributionUrl.replace('https://', '').split('.')[0];
+  // Get the actual CloudFront distribution ID from CloudFormation
+  const distributionIdCmd = `aws cloudformation describe-stack-resources --stack-name QSocialStack --query "StackResources[?ResourceType=='AWS::CloudFront::Distribution'].PhysicalResourceId" --output text`;
+  const distributionId = execSync(distributionIdCmd, { encoding: 'utf8' }).trim();
+  
   console.log('Invalidating CloudFront cache...');
   execSync(`aws cloudfront create-invalidation --distribution-id ${distributionId} --paths "/*"`, { stdio: 'inherit' });
 

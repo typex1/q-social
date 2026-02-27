@@ -15,7 +15,10 @@
     "cdk:synth": "cd infrastructure && cdk synth",
     "cdk:destroy": "cd infrastructure && cdk destroy",
     "validate:local": "node scripts/validate-local.js",
-    "validate:errors": "node scripts/validate-errors.js"
+    "validate:errors": "node scripts/validate-errors.js",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui",
+    "test:e2e:headed": "playwright test --headed"
   },
   "dependencies": {
     "@aws-sdk/client-dynamodb": "^3.540.0",
@@ -31,6 +34,7 @@
     "uuid": "^9.0.1"
   },
   "devDependencies": {
+    "@playwright/test": "^1.58.2",
     "@types/aws-lambda": "^8.10.136",
     "@types/cors": "^2.8.17",
     "@types/express": "^4.17.21",

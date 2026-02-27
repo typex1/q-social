@@ -47,8 +47,11 @@ q-social/
 │   ├── bin/
 │   └── lib/
 ├── scripts/
-│   └── deploy-frontend.js
-└── data/                     # SQLite database (local only)
+│   ├── deploy-frontend.js
+│   ├── validate-local.js
+│   └── validate-errors.js
+├── data/                     # SQLite database (local only)
+└── VALIDATION_REPORT.md      # Test results
 ```
 
 ## Prerequisites
@@ -98,6 +101,31 @@ graph LR
 - **Port 3000:** Next.js frontend server
 - **Port 3001:** Express backend API server
 - Frontend makes API calls to `http://localhost:3001/api/*`
+
+## Testing & Validation
+
+### Automated Tests
+
+Run validation tests to verify the application is working correctly:
+
+```bash
+# Start backend first
+npm run dev:backend
+
+# In another terminal, run validation
+npm run validate:local    # Tests API endpoints and data flow
+npm run validate:errors   # Tests error handling
+```
+
+### Manual Testing
+
+1. **Post a message:** Enter text and click "Post"
+2. **Character counter:** Verify counter updates as you type
+3. **Validation:** Try posting empty or 281+ character messages
+4. **Feed ordering:** Verify newest messages appear first
+5. **Persistence:** Restart server and verify messages persist
+
+See [VALIDATION_REPORT.md](./VALIDATION_REPORT.md) for detailed test results.
 - Both servers must be running simultaneously (use `npm run dev:local`)
 
 ## Remote Development with Proxy

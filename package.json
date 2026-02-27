@@ -13,7 +13,9 @@
     "deploy:frontend": "node scripts/deploy-frontend.js",
     "deploy:aws": "npm run deploy:backend && npm run deploy:frontend",
     "cdk:synth": "cd infrastructure && cdk synth",
-    "cdk:destroy": "cd infrastructure && cdk destroy"
+    "cdk:destroy": "cd infrastructure && cdk destroy",
+    "validate:local": "node scripts/validate-local.js",
+    "validate:errors": "node scripts/validate-errors.js"
   },
   "dependencies": {
     "@aws-sdk/client-dynamodb": "^3.540.0",

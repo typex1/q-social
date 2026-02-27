@@ -1,0 +1,26 @@
+digraph "Q-Social AWS Architecture" {
+	graph [fontcolor="#2D3436" fontname="Sans-Serif" fontsize=15 label="Q-Social AWS Architecture" nodesep=0.60 pad=2.0 rankdir=LR ranksep=0.75 splines=ortho]
+	node [fixedsize=true fontcolor="#2D3436" fontname="Sans-Serif" fontsize=13 height=1.4 imagescale=true labelloc=b shape=box style=rounded width=1.4]
+	edge [color="#7B8894"]
+	c6129e5c3fc145c2ad516d458e48417c [label=User height=1.9 image="/home/participant/.cache/uv/archive-v0/z2y4NUiFQHpbwkQTTQjo-/lib/python3.12/site-packages/resources/aws/general/user.png" shape=none]
+	subgraph cluster_Frontend {
+		graph [bgcolor="#E5F5FD" fontname="Sans-Serif" fontsize=12 label=Frontend labeljust=l pencolor="#AEB6BE" rankdir=LR shape=box style=rounded]
+		"815a5416f3d04965bcc8e0cf28491995" [label="CloudFront CDN" height=1.9 image="/home/participant/.cache/uv/archive-v0/z2y4NUiFQHpbwkQTTQjo-/lib/python3.12/site-packages/resources/aws/network/cloudfront.png" shape=none]
+		a99a2189ff174f73bf64a9aa03f3b6ff [label="S3 Static Site
+(Next.js)" height=2.3 image="/home/participant/.cache/uv/archive-v0/z2y4NUiFQHpbwkQTTQjo-/lib/python3.12/site-packages/resources/aws/storage/simple-storage-service-s3.png" shape=none]
+	}
+	subgraph "cluster_Backend API" {
+		graph [bgcolor="#E5F5FD" fontname="Sans-Serif" fontsize=12 label="Backend API" labeljust=l pencolor="#AEB6BE" rankdir=LR shape=box style=rounded]
+		"48c1c5eea5a74bbeaaae4f9e1316eb20" [label="API Gateway
+/api/messages" height=2.3 image="/home/participant/.cache/uv/archive-v0/z2y4NUiFQHpbwkQTTQjo-/lib/python3.12/site-packages/resources/aws/mobile/api-gateway.png" shape=none]
+		"93d2740b1b764c1b9c21a745d4b340c9" [label="Lambda Handler
+GET/POST" height=2.3 image="/home/participant/.cache/uv/archive-v0/z2y4NUiFQHpbwkQTTQjo-/lib/python3.12/site-packages/resources/aws/compute/lambda.png" shape=none]
+	}
+	"918d8ebf86a846769dbcb022932a40e6" [label="DynamoDB
+q-social-messages" height=2.3 image="/home/participant/.cache/uv/archive-v0/z2y4NUiFQHpbwkQTTQjo-/lib/python3.12/site-packages/resources/aws/database/dynamodb.png" shape=none]
+	c6129e5c3fc145c2ad516d458e48417c -> "815a5416f3d04965bcc8e0cf28491995" [dir=forward fontcolor="#2D3436" fontname="Sans-Serif" fontsize=13]
+	"815a5416f3d04965bcc8e0cf28491995" -> a99a2189ff174f73bf64a9aa03f3b6ff [dir=forward fontcolor="#2D3436" fontname="Sans-Serif" fontsize=13]
+	a99a2189ff174f73bf64a9aa03f3b6ff -> "48c1c5eea5a74bbeaaae4f9e1316eb20" [label="API Calls" dir=forward fontcolor="#2D3436" fontname="Sans-Serif" fontsize=13]
+	"48c1c5eea5a74bbeaaae4f9e1316eb20" -> "93d2740b1b764c1b9c21a745d4b340c9" [dir=forward fontcolor="#2D3436" fontname="Sans-Serif" fontsize=13]
+	"93d2740b1b764c1b9c21a745d4b340c9" -> "918d8ebf86a846769dbcb022932a40e6" [dir=forward fontcolor="#2D3436" fontname="Sans-Serif" fontsize=13]
+}
